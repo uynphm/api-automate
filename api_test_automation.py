@@ -2,7 +2,6 @@ import pyautogui
 import time
 import logging
 import json
-from datetime import datetime
 import pygetwindow as gw
 
 # List of command names in the order they appear in the dropdown
@@ -93,6 +92,8 @@ class APITestAutomation:
         win = windows[0]
 
         # Bring the window to front
+        if win.isMinimized:
+            win.restore()
         win.activate()
         time.sleep(0.5)  # Give it a moment
 
@@ -136,3 +137,6 @@ class APITestAutomation:
 # Initialize and run the tests
 automation = APITestAutomation()
 automation.run_tests()
+
+# import pygetwindow as gw
+# print([win.title for win in gw.getAllWindows()])

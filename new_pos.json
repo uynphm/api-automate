@@ -44,6 +44,15 @@
     "Set Replication Status (Cluster Only)": [346, 687],
     "Custom PUT": [310, 708],   
     "dropdown": [273, 243],
-    "issue": [325, 291]
+    "issue": [325, 291],
+    "response_box": [201, 657],
+    "8648": [648, 175],
+    "8650": [646, 225],
+    "8750": [656, 244],
+    "API_name": [627, 303],
+    "parameter": [615, 371],
+    "user_token": [626, 428],
+    "show_xml": [193, 554],
+    "http_status_code": [739, 553]
   }
   
