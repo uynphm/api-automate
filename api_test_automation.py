@@ -54,32 +54,22 @@ commands = [
     "Custom PUT"
 ]
 
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.FileHandler(f'api_test_{datetime.now().strftime("%Y%m%d_%H%M%S")}.log'),
-        logging.StreamHandler()
-    ]
-)
-
 class APITestAutomation:
     def __init__(self):
         # Add a small delay between actions to make them more reliable
         pyautogui.PAUSE = 1
         # Enable fail-safe (move mouse to corner to stop)
         pyautogui.FAILSAFE = True
-        
+
         # Load positions from JSON file
         try:
-            with open('positions.json', 'r') as f:
+            with open('new_pos.json', 'r') as f:
                 self.positions = json.load(f)
-                logging.info("Successfully loaded positions from positions.json")
+                logging.info("Successfully loaded positions from new_pos.json")
         except Exception as e:
-            logging.error(f"Error loading positions.json: {str(e)}")
+            logging.error(f"Error loading new_pos.json: {str(e)}")
             raise
-        
+
     def click_position(self, label, delay=1):
         x, y = self.positions[label]
         pyautogui.moveTo(x, y)
@@ -94,19 +84,26 @@ class APITestAutomation:
     def run_tests(self):
         logging.info(f"Starting automated testing for all commands")
         # Focus and resize the window
-        windows = gw.getWindowsWithTitle("capella FTC API Test tool")
+        windows = gw.getWindowsWithTitle("Capella FTC API Test tool")
         if not windows:
             print("Window not found!")
             exit()
+
+        # Use the first match
         win = windows[0]
+
+        # Bring the window to front
         win.activate()
-        time.sleep(0.5)
-        win.moveTo(100, 100)
-        win.resizeTo(1000, 700)
+        time.sleep(0.5)  # Give it a moment
+
+        # Resize and move it to a fixed position
+        win.moveTo(100, 100)     # Top-left corner (x, y)
+        win.resizeTo(1000, 700)  # Width, height
+
         # First 23 commands (no scroll)
         for i, command in enumerate(commands):
             if command not in self.positions:
-                logging.warning(f"Position for command '{command}' not found in positions.json!")
+                logging.warning(f"Position for command '{command}' not found in new_pos.json!")
                 continue
             if i == 0:
                 self.click_position("issue")
@@ -125,18 +122,17 @@ class APITestAutomation:
                 self.click_position("issue")
             time.sleep(2)
 
-def main():
-    automation = APITestAutomation()
-    
-    # Confirm before starting
-    print("\nReady to start testing. The script will:")
-    print("1. Test all commands in order")
-    print("2. Log all actions to a file")
-    print("3. Can be stopped by moving mouse to any corner")
-    input("\nPress Enter to start testing or Ctrl+C to cancel...")
-    
-    # Run the tests
-    automation.run_tests()
 
-if __name__ == "__main__":
-    main() 
+# # Configure logging
+# logging.basicConfig(
+#     level=logging.INFO,
+#     format='%(asctime)s - %(levelname)s - %(message)s',
+#     handlers=[
+#         logging.FileHandler(f'api_test_{datetime.now().strftime("%Y%m%d_%H%M%S")}.log'),
+#         logging.StreamHandler()
+#     ]
+# )
+
+# Initialize and run the tests
+automation = APITestAutomation()
+automation.run_tests()
