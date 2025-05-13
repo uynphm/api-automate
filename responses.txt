@@ -1,0 +1,477 @@
+Response Log - Created at 2025-05-13 13:01:29
+==================================================
+Command: Get System Info
+<?xml version="1.0" encoding="UTF-8"?>
+<Content>
+  <Status>
+    <ServerRequest Uri="/CambriaFC/v1/SystemInfo" Verb="get" />
+  </Status>
+  <System CPUs="24" HasCluster="0" NbOfProcessorGroup="1" ProductVersion="5.6.0.24084" Ram="63080" Winver="6.2 (9200)" />
+</Content>
+--------------------------------------------------
+Command: Get System Info (Invalid URI)
+<?xml version="1.0" encoding="UTF-8"?>
+<Content>
+  <Status>
+    <ServerRequest Uri="/CambriaFC/v0/SystemInfo" Verb="get" />
+    <Error DebugInfo="Unsupported function" HttpCode="404" ReadableErrorEng="Invalid URI, it does not refer to any supported API" Type="Invalid Operation" />
+  </Status>
+</Content>
+--------------------------------------------------
+Command: Get System Status
+<?xml version="1.0" encoding="UTF-8"?>
+<Content>
+  <Status>
+    <ServerRequest Uri="/CambriaFC/v1/SystemStatus" Verb="get" />
+  </Status>
+  <System CPUUsage="1" DatabaseConnection="1" FreeRam="45288" />
+</Content>
+--------------------------------------------------
+Command: Add 20 secs Fake Job
+<?xml version="1.0" encoding="UTF-8"?>
+<Content>
+  <Status>
+    <ServerRequest JobID="fdcf6e8a-dcd1-42c8-a8b0-fcb4f5b69594" Uri="/CambriaFC/v1/Jobs" Verb="post" />
+  </Status>
+</Content>
+--------------------------------------------------
+Command: Add 2 mins Fake Job
+<?xml version="1.0" encoding="UTF-8"?>
+<Content>
+  <Status>
+    <ServerRequest JobID="a3ba00ee-4f16-41a0-87d-2e151b3db96f" Uri="/CambriaFC/v1/Jobs" Verb="post" />
+  </Status>
+</Content>
+--------------------------------------------------
+Command: Add Source Analysis Job
+<?xml version="1.0" encoding="UTF-8"?>
+<Content>
+  <Status>
+    <ServerRequest JobID="d81cabba-8979-42c6-b29-74890ceddec" Uri="/CambriaFC/v1/Jobs" Verb="post" />
+  </Status>
+</Content>
+--------------------------------------------------
+Command: Add Job with non-XML data
+<?xml version="1.0" encoding="UTF-8"?>
+<Content>
+  <Status>
+    <ServerRequest Uri="/CambriaFC/v1/Jobs" Verb="post" />
+    <Error DebugInfo="This is really not XML" HttpCode="500" ReadableErrorEng="Failed to add job due to: XML error: Could not get any information from XML file: Job XML for JobID 9d251311-cde7-4c5c-ae77-cb9798e010ea" Type="Unexpected Error" />
+  </Status>
+</Content>
+--------------------------------------------------
+Command: Add Job with missing output location
+<?xml version="1.0" encoding="UTF-8"?>
+<Content>
+  <Status>
+    <ServerRequest Uri="/CambriaFC/v1/Jobs" Verb="post" />
+    <Error DebugInfo="&lt;JobDescr Priority=&quot;4&quot; NumberOfRetries=&quot;2&quot; Description=&quot;File to file conversion ABC&quot; Submitter=&quot;120.17.5.4&quot;&gt; &lt;Job Type=&quot;MediaGeneric&quot;&gt; &lt;Filters /&gt; &lt;Settings&gt; &lt;MuxerSettings MuxerName=&quot;Muxer - MOV&quot; Type=&quot;MP4&quot; Name=&quot;Mux1&quot; OutputFilenameExtension=&quot;mov&quot; moovAtStart=&quot;0&quot; writeTMCDTrack=&quot;0&quot; FileConflictResolveOption=&quot;AppendToFilename&quot; /&gt; &lt;EncoderSettings EncoderName=&quot;Video Encoder - DVSD&quot; Type=&quot;Video&quot; Name=&quot;VideoEnc1&quot; DVFormat=&quot;DV25&quot; FrameWidth=&quot;720&quot; FrameHeight=&quot;480&quot; FrameRate=&quot;29.97&quot; Interlacing=&quot;Lower Field First&quot; VideoAspectRatio=&quot;4:3&quot; /&gt; &lt;EncoderSettings EncoderName=&quot;Audio Encoder - PCM&quot; Type=&quot;Audio&quot; NbOfChannels=&quot;2&quot; SampleRate=&quot;48000&quot; BitsPerSample=&quot;16&quot; LanguageCode=&quot;eng&quot; Name=&quot;AudioEnc1&quot; /&gt; &lt;/Settings&gt; &lt;Script Use=&quot;0&quot; TaskTimeOut=&quot;10000&quot; AnalysisMode=&quot;Normal&quot; Type=&quot;Perl&quot; Content=&quot;&quot; /&gt; &lt;TranscodingPreferences PulldownMode=&quot;2:3:2:3&quot; DeleteOutputOnFail=&quot;0&quot; MoveToFolder=&quot;&quot; DownscaleMode=&quot;Best&quot; DeinterlacerMode=&quot;Best&quot; TimeStretchMode=&quot;1&quot; FRCMode=&quot;Auto&quot; SourceErrorTolerancePerMin=&quot;0&quot; SourcePreSync=&quot;PreserveAudio_AddBlackFrames&quot; CopySourceOnFail=&quot;0&quot; /&gt; &lt;Output Mux=&quot;Mux1&quot;&gt; &lt;OutStream OutStreamID=&quot;&quot; StreamSrc=&quot;Src1&quot; InStreamType=&quot;Video&quot; InStreamIndex=&quot;0&quot; Enc=&quot;VideoEnc1&quot; /&gt; &lt;OutStream OutStreamID=&quot;&quot; StreamSrc=&quot;Src1&quot; InStreamType=&quot;Audio&quot; InStreamIndex=&quot;0&quot; Enc=&quot;AudioEnc1&quot; Language=&quot;eng&quot; /&gt; &lt;/Output&gt; &lt;Source Location=&quot;\\fs\mediaeng\MP4\4Tracks_1chEach.mp4&quot; Name=&quot;Src1&quot; /&gt;&lt;/Job&gt;&lt;/JobDescr&gt;" HttpCode="500" ReadableErrorEng="Failed to add job due to: XML error: OutputFilename is not specified for muxer settings." Type="Unexpected Error" />
+  </Status>
+</Content>
+--------------------------------------------------
+Command: Remove Job
+<?xml version="1.0" encoding="UTF-8"?>
+<Content>
+  <Status>
+    <ServerRequest Uri="/CambriaFC/v1/Jobs" Verb="post" />
+    <Error DebugInfo="&lt;JobDescr Priority=&quot;4&quot; NumberOfRetries=&quot;2&quot; Description=&quot;File to file conversion ABC&quot; Submitter=&quot;120.17.5.4&quot;&gt; &lt;Job Type=&quot;MediaGeneric&quot;&gt; &lt;Filters /&gt; &lt;Settings&gt; &lt;MuxerSettings MuxerName=&quot;Muxer - MOV&quot; Type=&quot;MP4&quot; Name=&quot;Mux1&quot; OutputFilenameExtension=&quot;mov&quot; moovAtStart=&quot;0&quot; writeTMCDTrack=&quot;0&quot; FileConflictResolveOption=&quot;AppendToFilename&quot; /&gt; &lt;EncoderSettings EncoderName=&quot;Video Encoder - DVSD&quot; Type=&quot;Video&quot; Name=&quot;VideoEnc1&quot; DVFormat=&quot;DV25&quot; FrameWidth=&quot;720&quot; FrameHeight=&quot;480&quot; FrameRate=&quot;29.97&quot; Interlacing=&quot;Lower Field First&quot; VideoAspectRatio=&quot;4:3&quot; /&gt; &lt;EncoderSettings EncoderName=&quot;Audio Encoder - PCM&quot; Type=&quot;Audio&quot; NbOfChannels=&quot;2&quot; SampleRate=&quot;48000&quot; BitsPerSample=&quot;16&quot; LanguageCode=&quot;eng&quot; Name=&quot;AudioEnc1&quot; /&gt; &lt;/Settings&gt; &lt;Script Use=&quot;0&quot; TaskTimeOut=&quot;10000&quot; AnalysisMode=&quot;Normal&quot; Type=&quot;Perl&quot; Content=&quot;&quot; /&gt; &lt;TranscodingPreferences PulldownMode=&quot;2:3:2:3&quot; DeleteOutputOnFail=&quot;0&quot; MoveToFolder=&quot;&quot; DownscaleMode=&quot;Best&quot; DeinterlacerMode=&quot;Best&quot; TimeStretchMode=&quot;1&quot; FRCMode=&quot;Auto&quot; SourceErrorTolerancePerMin=&quot;0&quot; SourcePreSync=&quot;PreserveAudio_AddBlackFrames&quot; CopySourceOnFail=&quot;0&quot; /&gt; &lt;Output Mux=&quot;Mux1&quot;&gt; &lt;OutStream OutStreamID=&quot;&quot; StreamSrc=&quot;Src1&quot; InStreamType=&quot;Video&quot; InStreamIndex=&quot;0&quot; Enc=&quot;VideoEnc1&quot; /&gt; &lt;OutStream OutStreamID=&quot;&quot; StreamSrc=&quot;Src1&quot; InStreamType=&quot;Audio&quot; InStreamIndex=&quot;0&quot; Enc=&quot;AudioEnc1&quot; Language=&quot;eng&quot; /&gt; &lt;/Output&gt; &lt;Source Location=&quot;\\fs\mediaeng\MP4\4Tracks_1chEach.mp4&quot; Name=&quot;Src1&quot; /&gt;&lt;/Job&gt;&lt;/JobDescr&gt;" HttpCode="500" ReadableErrorEng="Failed to add job due to: XML error: OutputFilename is not specified for muxer settings." Type="Unexpected Error" />
+  </Status>
+</Content>
+--------------------------------------------------
+Command: Get List of Job IDs
+<?xml version="1.0" encoding="UTF-8"?>
+<Content>
+  <Status>
+    <ServerRequest Uri="/CambriaFC/v1/Jobs" Verb="get" />
+  </Status>
+  <Joblist ItemsInList="29" TotalItems="29">
+    <Job ID="576b1433-76b7-487a-a136-14606a8132d" />
+    <Job ID="7f90bf58-761e-493e-9119-444720577c7" />
+    <Job ID="d255b500-2134-4552-a4b6-1a2bbfe67731" />
+    <Job ID="8c9fe0a9-5ab6-47af-ad9-a34fbd7d74cd" />
+    <Job ID="71ea8e3b-adc0-4379-bcec-bfe14186474" />
+    <Job ID="b85851c1-72cf-4b8f-b093-138c6f35bcb4" />
+    <Job ID="6e98b447-2239-42cb-bf69-88f05f5c439e" />
+    <Job ID="e04e7d31-c1a0-4b05-ba56-9d27f15f62b" />
+    <Job ID="14406800-8c7e-47f5-9b49-25e04fc9cb42" />
+    <Job ID="91cc98c3-5f1a-422d-afd2-1f9d62efe138" />
+    <Job ID="f622a2e3-9248-4277-a413-603c43a7cbd" />
+    <Job ID="39d0581b-74be-4c06-9aa4-43b1d2509728" />
+    <Job ID="57e70e2f-45f7-45d2-be99-3314a6baffae" />
+    <Job ID="1783eb2e-766c-4aec-a86f-ba3164ca755d" />
+    <Job ID="524106f7-6a04-4e94-9dd8-13eaad1fe455" />
+    <Job ID="8472477b-9e5c-4dee-8bb5-1560734d22fd" />
+    <Job ID="39f4cfd3-23dd-4d07-8c30-eeed42a956a5" />
+    <Job ID="d3aaa484-9728-49e0-8fd6-66d5adfff5fa" />
+    <Job ID="7ae0f215-9d04-4a27-852e-a7a0df5c42b3" />
+    <Job ID="e73541ce-5e04-4f57-94af-775a15fb297e" />
+    <Job ID="92bd3c03-36d1-4d6b-b63c-d0cfdcd54280" />
+    <Job ID="6de13bbd-29fa-48c9-9852-d992db6a4b9a" />
+    <Job ID="c900e02b-3f79-4448-8981-8479bf2d37e3" />
+    <Job ID="9d38688e-fc05-4239-bd9f-cb22daec38d2" />
+    <Job ID="9f4b51a3-71fd-4e6a-90c8-67566ba47d41" />
+    <Job ID="4539ba09-31a3-4637-b681-58d03acf7ebd" />
+    <Job ID="fdcf6e8a-dcd1-42c8-a8b0-fcb4f5b69594" />
+    <Job ID="a3ba00ee-4f16-41a0-87d-2e151b3db96f" />
+    <Job ID="d81cabba-8979-42c6-b29-74890ceddec" />
+  </Joblist>
+</Content>
+--------------------------------------------------
+Command: Get List of paused jobs' Job IDs
+<?xml version="1.0" encoding="UTF-8"?>
+<Content>
+  <Status>
+    <ServerRequest Uri="/CambriaFC/v1/Jobs/" Verb="get" />
+  </Status>
+  <Joblist ItemsInList="0" TotalItems="0" />
+</Content>
+--------------------------------------------------
+Command: Get Information about a Job
+---------------------------
+
+---------------------------
+This command requires a Job ID to be set.  Job ID is currently empty.
+---------------------------
+OK   
+---------------------------
+
+--------------------------------------------------
+Command: Pause a Job
+<?xml version="1.0" encoding="UTF-8"?>
+<Content>
+  <Status>
+    <ServerRequest Uri="/CambriaFC/v1/Jobs/" Verb="get" />
+  </Status>
+  <Joblist ItemsInList="0" TotalItems="0" />
+</Content>
+--------------------------------------------------
+Command: Resume a Job
+<?xml version="1.0" encoding="UTF-8"?>
+<Content>
+  <Status>
+    <ServerRequest Uri="/CambriaFC/v1/Jobs/" Verb="get" />
+  </Status>
+  <Joblist ItemsInList="0" TotalItems="0" />
+</Content>
+--------------------------------------------------
+Command: Request a Job
+<?xml version="1.0" encoding="UTF-8"?>
+<Content>
+  <Status>
+    <ServerRequest Uri="/CambriaFC/v1/Jobs/" Verb="get" />
+  </Status>
+  <Joblist ItemsInList="0" TotalItems="0" />
+</Content>
+--------------------------------------------------
+Command: Cancel a Job
+---------------------------
+
+---------------------------
+This command requires a Job ID to be set.  Job ID is currently empty.
+---------------------------
+OK   
+---------------------------
+
+--------------------------------------------------
+Command: Set Job Priority to 1
+<?xml version="1.0" encoding="UTF-8"?>
+<Content>
+  <Status>
+    <ServerRequest Uri="/CambriaFC/v1/Jobs/" Verb="get" />
+  </Status>
+  <Joblist ItemsInList="0" TotalItems="0" />
+</Content>
+--------------------------------------------------
+Command: Set Job Priority to 10
+<?xml version="1.0" encoding="UTF-8"?>
+<Content>
+  <Status>
+    <ServerRequest Uri="/CambriaFC/v1/Jobs/" Verb="get" />
+  </Status>
+  <Joblist ItemsInList="0" TotalItems="0" />
+</Content>
+--------------------------------------------------
+Command: Set Job Retries to 2
+<?xml version="1.0" encoding="UTF-8"?>
+<Content>
+  <Status>
+    <ServerRequest Uri="/CambriaFC/v1/Jobs/" Verb="get" />
+  </Status>
+  <Joblist ItemsInList="0" TotalItems="0" />
+</Content>
+--------------------------------------------------
+Command: Set Job Retries to 0
+<?xml version="1.0" encoding="UTF-8"?>
+<Content>
+  <Status>
+    <ServerRequest Uri="/CambriaFC/v1/Jobs/" Verb="get" />
+  </Status>
+  <Joblist ItemsInList="0" TotalItems="0" />
+</Content>
+--------------------------------------------------
+Command: Set Invalid Job Status
+---------------------------
+
+---------------------------
+This command requires a Job ID to be set.  Job ID is currently empty.
+---------------------------
+OK   
+---------------------------
+
+--------------------------------------------------
+Command: Get Job IDs By Source Filename
+<?xml version="1.0" encoding="UTF-8"?>
+<Content>
+  <Status>
+    <ServerRequest Uri="/CambriaFC/v1/Jobs/" Verb="get" />
+  </Status>
+  <Joblist ItemsInList="0" TotalItems="0" />
+</Content>
+--------------------------------------------------
+Command: Get Job IDs By Output Filename
+<?xml version="1.0" encoding="UTF-8"?>
+<Content>
+  <Status>
+    <ServerRequest Uri="/CambriaFC/v1/Jobs/" Verb="get" />
+  </Status>
+  <Joblist ItemsInList="29" TotalItems="29">
+    <Job ID="92bd3c03-36d1-4d6b-b63c-d0cfdcd54280" />
+    <Job ID="e73541ce-5e04-4f57-94af-775a15fb297e" />
+    <Job ID="91cc98c3-5f1a-422d-afd2-1f9d62efe138" />
+    <Job ID="57e70e2f-45f7-45d2-be99-3314a6baffae" />
+    <Job ID="6de13bbd-29fa-48c9-9852-d992db6a4b9a" />
+    <Job ID="c900e02b-3f79-4448-8981-8479bf2d37e3" />
+    <Job ID="9d38688e-fc05-4239-bd9f-cb22daec38d2" />
+    <Job ID="576b1433-76b7-487a-a136-14606a8132d" />
+    <Job ID="d255b500-2134-4552-a4b6-1a2bbfe67731" />
+    <Job ID="9f4b51a3-71fd-4e6a-90c8-67566ba47d41" />
+    <Job ID="e04e7d31-c1a0-4b05-ba56-9d27f15f62b" />
+    <Job ID="8472477b-9e5c-4dee-8bb5-1560734d22fd" />
+    <Job ID="6e98b447-2239-42cb-bf69-88f05f5c439e" />
+    <Job ID="4539ba09-31a3-4637-b681-58d03acf7ebd" />
+    <Job ID="fdcf6e8a-dcd1-42c8-a8b0-fcb4f5b69594" />
+    <Job ID="7f90bf58-761e-493e-9119-444720577c7" />
+    <Job ID="a3ba00ee-4f16-41a0-87d-2e151b3db96f" />
+    <Job ID="39f4cfd3-23dd-4d07-8c30-eeed42a956a5" />
+    <Job ID="d3aaa484-9728-49e0-8fd6-66d5adfff5fa" />
+    <Job ID="d81cabba-8979-42c6-b29-74890ceddec" />
+    <Job ID="14406800-8c7e-47f5-9b49-25e04fc9cb42" />
+    <Job ID="7ae0f215-9d04-4a27-852e-a7a0df5c42b3" />
+    <Job ID="39d0581b-74be-4c06-9aa4-43b1d2509728" />
+    <Job ID="71ea8e3b-adc0-4379-bcec-bfe14186474" />
+    <Job ID="b85851c1-72cf-4b8f-b093-138c6f35bcb4" />
+    <Job ID="8c9fe0a9-5ab6-47af-ad9-a34fbd7d74cd" />
+    <Job ID="524106f7-6a04-4e94-9dd8-13eaad1fe455" />
+    <Job ID="f622a2e3-9248-4277-a413-603c43a7cbd" />
+    <Job ID="1783eb2e-766c-4aec-a86f-ba3164ca755d" />
+  </Joblist>
+</Content>
+--------------------------------------------------
+Command: Search Jobs
+<?xml version="1.0" encoding="UTF-8"?>
+<Content>
+  <Status>
+    <ServerRequest Uri="/CambriaFC/v1/Jobs/" Verb="get" />
+  </Status>
+  <Joblist ItemsInList="29" TotalItems="29">
+    <Job ID="576b1433-76b7-487a-a136-14606a8132d" />
+    <Job ID="7f90bf58-761e-493e-9119-444720577c7" />
+    <Job ID="d255b500-2134-4552-a4b6-1a2bbfe67731" />
+    <Job ID="8c9fe0a9-5ab6-47af-ad9-a34fbd7d74cd" />
+    <Job ID="71ea8e3b-adc0-4379-bcec-bfe14186474" />
+    <Job ID="b85851c1-72cf-4b8f-b093-138c6f35bcb4" />
+    <Job ID="6e98b447-2239-42cb-bf69-88f05f5c439e" />
+    <Job ID="e04e7d31-c1a0-4b05-ba56-9d27f15f62b" />
+    <Job ID="14406800-8c7e-47f5-9b49-25e04fc9cb42" />
+    <Job ID="91cc98c3-5f1a-422d-afd2-1f9d62efe138" />
+    <Job ID="f622a2e3-9248-4277-a413-603c43a7cbd" />
+    <Job ID="39d0581b-74be-4c06-9aa4-43b1d2509728" />
+    <Job ID="57e70e2f-45f7-45d2-be99-3314a6baffae" />
+    <Job ID="1783eb2e-766c-4aec-a86f-ba3164ca755d" />
+    <Job ID="524106f7-6a04-4e94-9dd8-13eaad1fe455" />
+    <Job ID="8472477b-9e5c-4dee-8bb5-1560734d22fd" />
+    <Job ID="39f4cfd3-23dd-4d07-8c30-eeed42a956a5" />
+    <Job ID="d3aaa484-9728-49e0-8fd6-66d5adfff5fa" />
+    <Job ID="7ae0f215-9d04-4a27-852e-a7a0df5c42b3" />
+    <Job ID="e73541ce-5e04-4f57-94af-775a15fb297e" />
+    <Job ID="92bd3c03-36d1-4d6b-b63c-d0cfdcd54280" />
+    <Job ID="6de13bbd-29fa-48c9-9852-d992db6a4b9a" />
+    <Job ID="c900e02b-3f79-4448-8981-8479bf2d37e3" />
+    <Job ID="9d38688e-fc05-4239-bd9f-cb22daec38d2" />
+    <Job ID="9f4b51a3-71fd-4e6a-90c8-67566ba47d41" />
+    <Job ID="4539ba09-31a3-4637-b681-58d03acf7ebd" />
+    <Job ID="fdcf6e8a-dcd1-42c8-a8b0-fcb4f5b69594" />
+    <Job ID="a3ba00ee-4f16-41a0-87d-2e151b3db96f" />
+    <Job ID="d81cabba-8979-42c6-b29-74890ceddec" />
+  </Joblist>
+</Content>
+--------------------------------------------------
+Command: Get Transcoding Slot Info
+<?xml version="1.0" encoding="UTF-8"?>
+<Content>
+  <Status>
+    <ServerRequest Uri="/CambriaFC/v1/Settings" Verb="get" />
+  </Status>
+  <Settings BroadcastToCluster="1" JobStallTimeout="600" ManagementSlots="4" PrioritizeUrgentJob="0" TranscodingSlots="1" UrgentSlots="1" />
+</Content>
+--------------------------------------------------
+Command: Set Number of Transcoding Slots to 1
+<?xml version="1.0" encoding="UTF-8"?>
+<Content>
+  <Status>
+    <ServerRequest Uri="/CambriaFC/v1/Settings/?TranscodingSlots=1" Verb="put" />
+  </Status>
+</Content>
+--------------------------------------------------
+Command: Enable 'Pause other jobs for Urgent jobs'
+<?xml version="1.0" encoding="UTF-8"?>
+<Content>
+  <Status>
+    <ServerRequest Uri="/CambriaFC/v1/Settings/?PrioritizeUrgentJob=1" Verb="put" />
+  </Status>
+</Content>
+--------------------------------------------------
+Command: Disable 'Pause other jobs for Urgent jobs'
+<?xml version="1.0" encoding="UTF-8"?>
+<Content>
+  <Status>
+    <ServerRequest Uri="/CambriaFC/v1/Settings/?PrioritizeUrgentJob=0" Verb="put" />
+  </Status>
+</Content>
+--------------------------------------------------
+Command: Get Machine List (Cluster Only)
+<?xml version="1.0" encoding="UTF-8"?>
+<Content>
+  <Status>
+    <ServerRequest Uri="/CambriaFC/v1/Machines" Verb="get" />
+    <Error DebugInfo="Unsupported function" HttpCode="404" ReadableErrorEng="Invalid URI, it does not refer to any supported API" Type="Invalid Operation" />
+  </Status>
+</Content>
+--------------------------------------------------
+Command: Connect Machine to Cluster (Cluster Only)
+<?xml version="1.0" encoding="UTF-8"?>
+<Content>
+  <Status>
+    <ServerRequest Uri="/CambriaFC/v1/Machines/" Verb="put" />
+    <Error DebugInfo="Unsupported function" HttpCode="404" ReadableErrorEng="Invalid URI, it does not refer to any supported API" Type="Invalid Operation" />
+  </Status>
+</Content>
+--------------------------------------------------
+Command: Add New Machine to Cluster by IP (Cluster Only)
+---------------------------
+
+---------------------------
+This command requires a Job ID to be set.  Job ID is currently empty.
+---------------------------
+OK   
+---------------------------
+
+--------------------------------------------------
+Command: Disconnect Machine from Cluster (Cluster Only)
+<?xml version="1.0" encoding="UTF-8"?>
+<Content>
+  <Status>
+    <ServerRequest Uri="/CambriaFC/v1/Machines/" Verb="put" />
+    <Error DebugInfo="Unsupported function" HttpCode="404" ReadableErrorEng="Invalid URI, it does not refer to any supported API" Type="Invalid Operation" />
+  </Status>
+</Content>
+--------------------------------------------------
+Command: Disconnect (Maintenance mode) Machine from Cluster (Cluster Only)
+<?xml version="1.0" encoding="UTF-8"?>
+<Content>
+  <Status>
+    <ServerRequest Uri="/CambriaFC/v1/Machines/" Verb="put" />
+    <Error DebugInfo="Unsupported function" HttpCode="404" ReadableErrorEng="Invalid URI, it does not refer to any supported API" Type="Invalid Operation" />
+  </Status>
+</Content>
+--------------------------------------------------
+Command: Remove Machine from Cluster by ID (Cluster Only)
+---------------------------
+
+---------------------------
+This command requires a Job ID to be set.  Job ID is currently empty.
+---------------------------
+OK   
+---------------------------
+
+--------------------------------------------------
+Command: Reset Machine Counter (Cluster Only)
+---------------------------
+
+---------------------------
+This command requires a Job ID to be set.  Job ID is currently empty.
+---------------------------
+OK   
+---------------------------
+
+--------------------------------------------------
+Command: Set Machine Transcoding Slots (Cluster Only)
+---------------------------
+
+---------------------------
+This command requires a Job ID to be set.  Job ID is currently empty.
+---------------------------
+OK   
+---------------------------
+
+--------------------------------------------------
+Command: Get Machine Tags (Cluster Only)
+---------------------------
+
+---------------------------
+This command requires a Job ID to be set.  Job ID is currently empty.
+---------------------------
+OK   
+---------------------------
+
+--------------------------------------------------
+Command: Set Machine Tags (Cluster Only)
+---------------------------
+
+---------------------------
+This command requires a Job ID to be set.  Job ID is currently empty.
+---------------------------
+OK   
+---------------------------
+
+--------------------------------------------------
+Command: Get Machine Priority (Cluster Only)
+---------------------------
+
+---------------------------
+This command requires a Job ID to be set.  Job ID is currently empty.
+---------------------------
+OK   
+---------------------------
+
+--------------------------------------------------
+Command: Get Replication Status (Cluster Only)
+---------------------------
+
+---------------------------
+This command requires a Job ID to be set.  Job ID is currently empty.
+---------------------------
+OK   
+---------------------------
+
+--------------------------------------------------
+Command: Set Replication Status (Cluster Only)
+---------------------------
+
+---------------------------
+This command requires a Job ID to be set.  Job ID is currently empty.
+---------------------------
+OK   
+---------------------------
+
+--------------------------------------------------
+Command: Custom PUT
+---------------------------
+
+---------------------------
+This command requires a Job ID to be set.  Job ID is currently empty.
+---------------------------
+OK   
+---------------------------
+
+--------------------------------------------------

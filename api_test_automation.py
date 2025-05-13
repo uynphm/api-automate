@@ -3,6 +3,8 @@ import time
 import logging
 import json
 import pygetwindow as gw
+import os  # Import os to check file existence
+import pyperclip  # Import pyperclip to handle clipboard operations
 
 # List of command names in the order they appear in the dropdown
 commands = [
@@ -32,7 +34,7 @@ commands = [
     "Search Jobs",
     "Get Transcoding Slot Info",
     "Set Number of Transcoding Slots to 1",
-    "Set Number of Transcoding Slots to 10",
+    "Set Number of Transcoding Slots to 2",
     "Enable 'Pause other jobs for Urgent jobs'",
     "Disable 'Pause other jobs for Urgent jobs'",
     "Get Machine List (Cluster Only)",
@@ -56,7 +58,7 @@ commands = [
 class APITestAutomation:
     def __init__(self):
         # Add a small delay between actions to make them more reliable
-        pyautogui.PAUSE = 1
+        pyautogui.PAUSE = 0.5
         # Enable fail-safe (move mouse to corner to stop)
         pyautogui.FAILSAFE = True
 
@@ -69,16 +71,38 @@ class APITestAutomation:
             logging.error(f"Error loading new_pos.json: {str(e)}")
             raise
 
+        # Create a single response file at the start of the test
+        self.response_file = "responses.txt"
+        with open(self.response_file, "w") as f:
+            f.write(f"Response Log - Created at {time.strftime('%Y-%m-%d %H:%M:%S')}\n")
+            f.write("=" * 50 + "\n")
+        logging.info(f"Response file '{self.response_file}' created.")
+
     def click_position(self, label, delay=1):
         x, y = self.positions[label]
         pyautogui.moveTo(x, y)
         pyautogui.click()
         time.sleep(delay)
 
-    def scroll_down(self, times=7, delay=0.5):
-        for _ in range(times):
-            pyautogui.scroll(-1000)
-            time.sleep(delay)
+    def copy_response(self):
+        pyautogui.click(self.positions["response_box"][0], self.positions["response_box"][1])
+        pyautogui.hotkey("ctrl", "a")
+        time.sleep(0.5)  # Give it a moment
+        pyautogui.hotkey("ctrl", "c")
+        time.sleep(0.5)  # Give it a moment
+        # Get the copied response from the clipboard
+        response = pyperclip.paste()
+        print(response)  # Print the response to the console
+        return response
+
+    def write_response_to_file(self, command_name=""):
+        # Copy the response and write to the single file
+        response = self.copy_response()  # Capture the response
+        with open(self.response_file, "a") as f:  # Open in append mode
+            f.write(f"Command: {command_name}\n")
+            f.write(response)  # Write the captured response
+            f.write("\n" + "-" * 50 + "\n")  # Add a separator for readability
+        logging.info(f"Response for '{command_name}' written to {self.response_file}")
 
     def run_tests(self):
         logging.info(f"Starting automated testing for all commands")
@@ -101,42 +125,24 @@ class APITestAutomation:
         win.moveTo(100, 100)     # Top-left corner (x, y)
         win.resizeTo(1000, 700)  # Width, height
 
-        # First 23 commands (no scroll)
+        # Iterate through all commands and write responses to the single file
         for i, command in enumerate(commands):
             if command not in self.positions:
                 logging.warning(f"Position for command '{command}' not found in new_pos.json!")
                 continue
             if i == 0:
                 self.click_position("issue")
-            elif i < 23:
-                self.click_position("dropdown")
-                self.click_position(command)
-                self.click_position("issue")
-            elif i == 23:
-                self.click_position("dropdown")
-                self.scroll_down(7)
-                self.click_position(command)
-                self.click_position("issue")
+                time.sleep(0.5)
+                self.write_response_to_file(command_name=command)
             else:
                 self.click_position("dropdown")
                 self.click_position(command)
                 self.click_position("issue")
+                time.sleep(0.5)
+                self.write_response_to_file(command_name=command)
             time.sleep(2)
 
-
-# # Configure logging
-# logging.basicConfig(
-#     level=logging.INFO,
-#     format='%(asctime)s - %(levelname)s - %(message)s',
-#     handlers=[
-#         logging.FileHandler(f'api_test_{datetime.now().strftime("%Y%m%d_%H%M%S")}.log'),
-#         logging.StreamHandler()
-#     ]
-# )
 
 # Initialize and run the tests
 automation = APITestAutomation()
 automation.run_tests()
-
-# import pygetwindow as gw
-# print([win.title for win in gw.getAllWindows()])
