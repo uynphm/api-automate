@@ -13,7 +13,7 @@
     "Get Information about a Job": [326, 289],
     "Pause a Job": [326, 289],
     "Resume a Job": [326, 289],
-    "Request a Job": [326, 289],
+    "Requeue a Job": [326, 289],
     "Cancel a Job": [326, 289],
     "Set Job Priority to 1": [326, 289],
     "Set Job Priority to 10": [326, 289],
@@ -49,10 +49,13 @@
     "8648": [648, 175],
     "8650": [646, 225],
     "8750": [656, 244],
-    "API_name": [627, 303],
-    "parameter": [615, 371],
-    "user_token": [626, 428],
-    "show_xml": [193, 554],
-    "http_status_code": [739, 553]
+    "API name": [627, 303],
+    "Parameter": [615, 371],
+    "User token": [626, 428],
+    "Show xml": [193, 554],
+    "Http status code": [739, 553],
+    "Initial Get List of Job IDs": [266, 447],
+    "Initial Get System Info": [254, 270],
+    "Job ID": [624, 247]
   }
   
