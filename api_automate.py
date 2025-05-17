@@ -143,7 +143,8 @@ class APIAutomate:
         win.resizeTo(1000, 700)
 
         if self.mode == "ftc":
-            # Do NOT change port, just run all FTC commands
+            self.click_position("port number")
+            self.click_position("ftc port")
             self.run_ftc_commands()
         elif self.mode == "cluster":
             # Change port to cluster, run all FTC commands, then all cluster and redundancy commands
