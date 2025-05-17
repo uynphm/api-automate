@@ -5,7 +5,7 @@ import json
 import pygetwindow as gw
 import pyperclip
 import re
-import sys
+import pandas as pd
 
 class APIAutomate:
     def __init__(self, mode):
@@ -327,6 +327,23 @@ class APIAutomate:
             self.click_position("issue")
             self.write_response_to_file(command)
 
+    def responses_to_excel(self, txt_path='responses.txt', excel_path='responses.xlsx'):
+        """Convert responses.txt to an Excel file with Command and Response columns."""
+        import re
+        with open(txt_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+        blocks = re.split(r'-{10,}', content)
+        data = []
+        for block in blocks:
+            match = re.search(r'Command: (.+?)\n(.*)', block, re.DOTALL)
+            if match:
+                command = match.group(1).strip()
+                response = match.group(2).strip()
+                data.append({'Command': command, 'Response': response})
+        df = pd.DataFrame(data)
+        df.to_excel(excel_path, index=False)
+        print(f"{excel_path} created!")
+
 if __name__ == "__main__":
     while True:
         mode = input("Which port do you want to test? Type 'ftc' or 'cluster': ").strip().lower()
@@ -335,3 +352,8 @@ if __name__ == "__main__":
         print("Invalid input. Please type 'ftc' or 'cluster'.")
     automate = APIAutomate(mode)
     automate.run_tests()
+    # After running tests, offer to convert responses.txt to Excel
+    try:
+        automate.responses_to_excel()
+    except Exception as e:
+        print(f"Could not convert responses.txt to Excel: {e}")
